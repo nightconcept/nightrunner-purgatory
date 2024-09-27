@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "nightrunnerrl"
+version = "0.0.1"
+description = "NightRunner roguelike using pygame and libtcod"
+authors = ["Danny Solivan <dark@nightconcept.net>"]
+license = "MIT"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11.9"
+
+[tool.poetry.group.dev.dependencies]
+pygame-ce = "^2.5.1"
+tcod = "^16.2.3"
+numpy = "^2.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
