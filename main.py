@@ -69,6 +69,7 @@ class Player:
         self.window = window
         self.x = x
         self.y = y
+        self.rect = image.subsurface((0, 0, 16, 16))
 
     def move(self, x, y):
         self.x += x
