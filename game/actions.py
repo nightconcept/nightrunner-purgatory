@@ -29,11 +29,13 @@ class Action:
         """
         raise NotImplementedError()
     
-class Move(Action):
+class MoveAction(Action):
     def __init__(self, entity: game.entity.Entity, dx: int, dy: int):
         """
         Move action will move the associated entity.
         :param entity: Entity which will perform the move.
+        :param dx: Distance to move along x-axis.
+        :param dy: Distance to move along y-axis.
         """
         super().__init__(entity)
 
@@ -51,3 +53,6 @@ class Move(Action):
 
         self.entity.x, self.entity.y = dest_x, dest_y
         return True
+
+class EscapeAction(Action):
+    pass

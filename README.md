@@ -19,4 +19,3 @@ With `nix` and `direnv` installed, requirements should set up automatically afte
 
 # References
 - [Roguelike Tutorials](https://rogueliketutorials.com/)
-- [libtcod.github.io | Libtcod on GitHub Pages.](https://libtcod.github.io/)

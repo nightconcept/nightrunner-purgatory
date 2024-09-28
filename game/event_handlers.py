@@ -17,7 +17,7 @@ import game.actions
 from game.engine import Engine
 import game.rendering
 
-from actions import Action
+from actions import Action, MoveAction, EscapeAction
 
 from keyboard_layout import MOVE_KEYS
 
@@ -45,38 +45,20 @@ class MainGameEventHandler(EventHandler):
 
     def handle_events(self, event: pygame.Event) -> bool:
         """Handle an event, perform any actions, then return the next active event handler."""
-        action_performed = False
-        events = pygame.event.get(pump=True)
-        for event in events:
-            action = self.process_event(event)
-            if action is None:
-                continue
-            try:
-                action_performed = action.perform()
-            except exceptions.Impossible as ex:
-                return False
-        return action_performed
-    
-    def process_event(self, event: pygame.Event) -> Optional[Action]:
-        """Return actions from events."""
-        response = None
-        #TODO
-        #if event.type == pygame.KEYDOWN:
+        #TODO copy from engine.py when complete next in tutorial
+        return True
 
-    #TODO
-    def ev_quit(self, event: pygame.Event) -> Optional[ActionOrHandler]:
+    def ev_quit(self, event: pygame.Event) -> Optional[Action]:
         raise SystemExit(0)
-    #TODO
-    def ev_keydown(self, event: pygame.Event) -> Optional[ActionOrHandler]:
-        key = event.sym
+    
+    def ev_keydown(self) -> Optional[Action]:
+        action: Optional[Action] = None
+        keys_pressed = pygame.key.get_pressed()
 
-        if key in MOVE_KEYS:
-            dx, dy = MOVE_KEYS[key]
-            return game.actions.Move(self.engine.player, dx=dx, dy=dy)
-        elif key == tcod.event.K_ESCAPE:
-            raise SystemExit(0)
+        if keys_pressed in MOVE_KEYS:
+            dx, dy = MOVE_KEYS[keys_pressed]
+            action = MoveAction(self.engine.player, dx=dx, dy=dy)
+        elif keys_pressed == tcod.event.K_ESCAPE:
+            action = EscapeAction(self.engine.player) # just passing an entity to make it happy
 
-        return None
-
-    def on_render(self, window: pygame.Window) -> None:
-        game.rendering.render_map(window, self.engine.game_map)
+        return action
