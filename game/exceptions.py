@@ -1,21 +1,19 @@
 # ===============================================================================
-# game/engine.py
+# game/exceptions.py
 # ===============================================================================
 
 # ===============================================================================
 # Imports
 # ===============================================================================
-from __future__ import annotations
 
-import game.entity
-import game.game_map
+# ===============================================================================
+# Constants and configuration
+# ===============================================================================
 
 # ===============================================================================
 # Classes
 # ===============================================================================
-class Engine:
+class Impossible(Exception):
+    """Exception raised when an actian is impossible to be performed.
+    Reason is in the error message
     """
-    Engine class that holds all relevant data together
-    """
-    game_map: game.game_map.GameMap
-    player: game.entity.Entity

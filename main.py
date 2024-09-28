@@ -12,6 +12,12 @@ from tiles import Tileset
 import pygame
 import tcod
 
+import game.engine
+import game.entity
+import game.game_map
+import game.event_handlers
+
+
 # ===============================================================================
 # Inits
 # ===============================================================================
@@ -100,6 +106,16 @@ def main() -> None:
     player_x: int = WINDOW_WIDTH // 2
     player_y: int = WINDOW_HEIGHT // 2
 
+    engine = game.engine.Engine()
+    engine.game_map = game.game_map.GameMap(engine, WINDOW_UNIT_WIDTH, WINDOW_UNIT_HEIGHT)
+    engine.game_map.tiles[1:-1, 1:-1] = 1
+    engine.game_map.tiles[30:33, 22] = 0
+    engine.player = game.entity.Entity(engine.game_map, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2, "@", (255, 255, 255))
+
+    game.entity.Entity(engine.game_map, WINDOW_WIDTH // 2 - 5, WINDOW_HEIGHT // 2, "@", (255, 255, 0))  # NPC
+
+    event_handler = game.event_handlers.MainGameEventHandler(engine)
+
     tileset = Tileset("data/dejavu16x16_gs_tc.png", (16,16), 0, 0)
 
     window = Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Yet Another Roguelike Tutorial")
@@ -111,16 +127,11 @@ def main() -> None:
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
+            event_handler = event_handler.handle_events(event)
+
             if event.type == pygame.QUIT:
                 run = False
-            
-            if event.type == pygame.KEYDOWN:
-                keys_pressed = pygame.key.get_pressed()
-                delta_x, delta_y = get_movement(keys_pressed)
-                dest_x = player_x + delta_x
-                dest_y = player_y + delta_y
-                if 0 <= dest_x < WINDOW_WIDTH and 0 <= dest_y < WINDOW_HEIGHT:
-                    player.move(delta_x, delta_y)
+
         window.draw()
     pygame.quit()
 
