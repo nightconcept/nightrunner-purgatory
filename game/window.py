@@ -19,7 +19,7 @@ class Window:
         self.draw_items = []
         pygame.display.set_caption(caption)
 
-    # may become relevant at some point
+    # may become relevant at some point, re-implement using rendering TODO
     def draw(self):
         self.win.fill(CONFIG.Colors["black"])
         for item in self.draw_items:

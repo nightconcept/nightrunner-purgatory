@@ -20,7 +20,7 @@ class Engine:
     """
     Engine class that holds all relevant data together
     """
-    def __init__(self, window: pygame.Window, entities: Set[Entity], player: Entity, game_map: GameMap):
+    def __init__(self, window: Window, entities: Set[Entity], player: Entity, game_map: GameMap):
         self.window =  window
         self.entities = entities
         self.event_handler = MainGameEventHandler(self)
@@ -30,15 +30,13 @@ class Engine:
     def handle_events(self, event: pygame.Event) -> bool:
         """Handle an event, perform any actions, then return the next active event handler."""
         action_performed = False
-        events = pygame.event.get(pump=True)
-        for event in events:
-            action = self.process_event(event)
-            if action is None:
-                continue
-            try:
-                action_performed = action.perform()
-            except exceptions.Impossible as ex:
-                return False
+        action = self.process_event(event)
+        if action is None:
+            return False
+        try:
+            action_performed = action.perform()
+        except exceptions.Impossible as ex:
+            return False
         return action_performed
     
     def process_event(self, event: pygame.Event) -> Optional[Action]:
