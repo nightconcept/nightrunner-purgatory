@@ -7,42 +7,39 @@
 # ===============================================================================
 from __future__ import annotations
 
-import game.entity
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from engine import Engine
+    from entity import Entity
 # ===============================================================================
 # Classes
 # ===============================================================================
 class Action:
-    def __init__(self, entity: game.entity.Entity) -> None:
-        """
-        Action class that can be performed.
-        :param entity: Entity which will perform the action
-        """
-        super().__init__()
-        self.entity = entity  # The object performing the action.
-        self.engine = entity.gamemap.engine
+    def perform(self, engine: Engine, entity: Entity) -> bool:
+        """Perform this action with the objects needed to determine its scope.
 
-    def perform(self) -> bool:
-        """Perform this action now.
+        `engine` is the scope this action is being performed in.
+
+        `entity` is the object performing the action.
 
         This method must be overridden by Action subclasses.
         """
         raise NotImplementedError()
     
 class MoveAction(Action):
-    def __init__(self, entity: game.entity.Entity, dx: int, dy: int):
+    def __init__(self, dx: int, dy: int):
         """
-        Move action will move the associated entity.
-        :param entity: Entity which will perform the move.
+        Move action across a distance.
+
         :param dx: Distance to move along x-axis.
         :param dy: Distance to move along y-axis.
         """
-        super().__init__(entity)
 
         self.dx = dx
         self.dy = dy
 
-    def perform(self) -> bool:
+    def perform(self, engine: Engine, entity: Entity) -> bool:
         dest_x = self.entity.x + self.dx
         dest_y = self.entity.y + self.dy
 
@@ -55,4 +52,6 @@ class MoveAction(Action):
         return True
 
 class EscapeAction(Action):
-    pass
+    def perform(self, engine: Engine, entity: Entity) -> bool:
+        raise SystemExit()
+        

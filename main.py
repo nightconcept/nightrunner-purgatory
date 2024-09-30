@@ -8,9 +8,8 @@
 # Imports
 # ===============================================================================
 from typing import Tuple
-from tiles import Tileset
+from game.tiles import Tileset
 import pygame
-import tcod
 
 from game.engine import Engine
 from game.entity import Entity, Player
@@ -18,7 +17,6 @@ from game.game_map import GameMap
 import game.event_handlers
 from game.window import Window
 from game.config import Config as CONFIG
-
 
 # ===============================================================================
 # Inits
@@ -52,7 +50,6 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 run = False
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

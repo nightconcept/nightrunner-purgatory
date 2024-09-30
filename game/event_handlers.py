@@ -15,7 +15,6 @@ import tcod
 
 import game.actions
 from game.engine import Engine
-import game.rendering
 
 from actions import Action, MoveAction, EscapeAction
 

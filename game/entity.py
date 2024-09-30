@@ -10,7 +10,6 @@ from __future__ import annotations
 from typing import Tuple
 
 from game.engine import Engine
-import game.game_map
 import pygame
 
 # ===============================================================================
@@ -20,7 +19,6 @@ class Entity:
     engine: Engine
     def __init__(
         self,
-        gamemap: game.game_map.GameMap,
         x: int,
         y: int,
         image: pygame.Rect,
@@ -32,11 +30,10 @@ class Entity:
         :param gamemap: GameMap that the entity will belong to
         :param x: Initial x-coordinate of entity
         :param y: Initial y-coordinate of entity
+        :param image: pygame.Rect that is the image of entity
         :param char: Character representing entity
         :param color: Color tuple (r,g,b) of entity
         """
-        self.gamemap = gamemap
-        gamemap.entities.add(self)
         self.x = x
         self.y = y
         self.image = image
@@ -87,3 +84,6 @@ class Player(Entity):
     
     def render(self):
         pygame.Surface.blit(self.window.get_surface(), self.rect, dest=(self.x, self.y))
+
+    def _validate_helper(self):
+        return True
