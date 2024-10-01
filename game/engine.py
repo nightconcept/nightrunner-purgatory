@@ -7,11 +7,16 @@
 # ===============================================================================
 from __future__ import annotations
 
-from typing import Set, Iterable, Any
-from game.entity import Entity
+import pygame
+
+from typing import Optional, Set, Iterable, Any
+from game.actions import Action
+from game.entity import Entity, Player
 from game.game_map import GameMap
 from game.window import Window
 from event_handlers import MainGameEventHandler
+from game.config import Config as CONFIG
+import exceptions
 
 # ===============================================================================
 # Classes
@@ -20,20 +25,21 @@ class Engine:
     """
     Engine class that holds all relevant data together
     """
-    def __init__(self, window: Window, entities: Set[Entity], game_map: GameMap):
+    def __init__(self, window: Window, entities: Set[Entity], game_map: GameMap, player: Entity):
         self.window =  window
         self.entities = entities
         self.event_handler = MainGameEventHandler(self)
         self.game_map = game_map
+        self.player = player
 
     def handle_events(self, event: pygame.Event) -> bool:
         """Handle an event, perform any actions, then return the next active event handler."""
         action_performed = False
-        action = self.retrieve_action(event)
+        action: Action | None = self.retrieve_action(event)
         if action is None:
             return False
         try:
-            action_performed = action.perform()
+            action_performed = action.perform(self, self.player)
         except exceptions.Impossible as ex:
             return False
         return action_performed
@@ -48,8 +54,12 @@ class Engine:
 
     def render(self) -> bool:
         """Render all entities, map, and UI on screen."""
-        self.window.fill(CONFIG.Colors["black"])
-        self.game_map.render()
-        for entity in self.entities:
-            entity.render()
-        pygame.display.flip()
+        try:
+            self.window.fill(CONFIG.Colors["black"])
+            self.game_map.render()
+            for entity in self.entities:
+                entity.render()
+            pygame.display.flip()
+        except exceptions.Impossible as ex:
+            return False
+        return True

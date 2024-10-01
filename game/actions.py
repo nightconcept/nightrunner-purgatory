@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from engine import Engine
     from entity import Entity
+    
 # ===============================================================================
 # Classes
 # ===============================================================================
@@ -35,20 +36,19 @@ class MoveAction(Action):
         :param dx: Distance to move along x-axis.
         :param dy: Distance to move along y-axis.
         """
-
         self.dx = dx
         self.dy = dy
 
     def perform(self, engine: Engine, entity: Entity) -> bool:
-        dest_x = self.entity.x + self.dx
-        dest_y = self.entity.y + self.dy
+        dest_x = entity.x + self.dx
+        dest_y = entity.y + self.dy
 
-        if not self.engine.game_map.in_bounds(dest_x, dest_y):
+        if not engine.game_map.in_bounds(dest_x, dest_y):
             return False # Destination is out of bounds.
-        if not self.engine.game_map.tiles[dest_x, dest_y]:
+        if not engine.game_map.tiles[dest_x, dest_y]:
             return False # Destination is blocked by a tile.
 
-        self.entity.x, self.entity.y = dest_x, dest_y
+        entity.x, entity.y = dest_x, dest_y
         return True
 
 class EscapeAction(Action):

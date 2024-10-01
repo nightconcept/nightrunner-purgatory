@@ -42,10 +42,15 @@ class MainGameEventHandler(EventHandler):
     def __init__(self, engine: Engine) -> None:
         super().__init__(engine)
 
-    def handle_events(self, event: pygame.Event) -> bool:
-        """Handle an event, perform any actions, then return the next active event handler."""
-        #TODO copy from engine.py when complete next in tutorial
-        return True
+    def handle_events(self, event: pygame.Event) -> Optional[Action]:
+        action: Optional[Action] = None
+        if event.type == pygame.KEYDOWN:
+            keys_pressed = pygame.key.get_pressed()
+            if keys_pressed in MOVE_KEYS:
+                dir = MOVE_KEYS[event.key]
+                action = MoveAction(*dir)
+                
+        return action
 
     def ev_quit(self, event: pygame.Event) -> Optional[Action]:
         raise SystemExit(0)
@@ -56,8 +61,8 @@ class MainGameEventHandler(EventHandler):
 
         if keys_pressed in MOVE_KEYS:
             dx, dy = MOVE_KEYS[keys_pressed]
-            action = MoveAction(self.engine.player, dx=dx, dy=dy)
+            action = MoveAction(dx=dx, dy=dy)
         elif keys_pressed == tcod.event.K_ESCAPE:
-            action = EscapeAction(self.engine.player) # just passing an entity to make it happy
+            action = EscapeAction()
 
         return action

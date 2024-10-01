@@ -75,22 +75,36 @@ class Entity:
 #TODO eventually merge in to entity of some sort
 class Player(Entity):
     """Player class"""
-    def __init__(self, image: pygame.Rect):
-        super().__init__
+    def __init__(
+            self,
+            x: int,
+            y: int,
+            image: pygame.Rect,
+            char: str,
+            color: Tuple[int, int, int],
+        ):
+        super().__init__(x, y, image, char, color)
         self.rect = image.subsurface((0, 0, 16, 16))
 
     def move(self, x, y):
         self.x += x
         self.y += y
     
-    def render(self):
-        pygame.Surface.blit(self.window.get_surface(), self.rect, dest=(self.x, self.y))
+    def render(self, engine: Engine):
+        pygame.Surface.blit(engine.window.get(), self.rect, dest=(self.x, self.y))
 
     def _validate_helper(self):
         return True
 
 class Npc(Player):
     """NPC class"""
-    def __init__(self, image: pygame.Rect):
-        super().__init__
+    def __init__(
+            self,
+            x: int,
+            y: int,
+            image: pygame.Rect,
+            char: str,
+            color: Tuple[int, int, int],
+        ):
+        super().__init__(x, y, image, char, color)
         self.rect = image.subsurface((0, 0, 16, 16))
