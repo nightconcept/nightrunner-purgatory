@@ -12,7 +12,7 @@ from game.tiles import Tileset
 import pygame
 
 from game.engine import Engine
-from game.entity import Entity, Player
+from game.entity import Entity, Player, Npc
 from game.game_map import GameMap
 import game.event_handlers
 from game.window import Window
@@ -35,11 +35,11 @@ def main() -> None:
     window = Window(CONFIG.WINDOW_WIDTH, CONFIG.WINDOW_HEIGHT, "Yet Another Roguelike Tutorial")
     game_map = GameMap(CONFIG.WINDOW_UNIT_WIDTH, CONFIG.WINDOW_UNIT_HEIGHT)
     tileset = Tileset("data/dejavu16x16_gs_tc.png", (16,16), 0, 0)
-    player = Entity(game_map, CONFIG.WINDOW_WIDTH // 2, CONFIG.WINDOW_HEIGHT // 2, tileset.get_tile(0, 1), "@", CONFIG.Colors["white"])
-    npc = Entity(game_map, CONFIG.WINDOW_WIDTH // 4, CONFIG.WINDOW_HEIGHT // 2, tileset.get_tile(0, 1), "@", CONFIG.Colors["yellow"])
+    player = Player(game_map, CONFIG.WINDOW_WIDTH // 2, CONFIG.WINDOW_HEIGHT // 2, tileset.get_tile(0, 1), "@", CONFIG.Colors["white"])
+    npc = NPC(game_map, CONFIG.WINDOW_WIDTH // 4, CONFIG.WINDOW_HEIGHT // 2, tileset.get_tile(0, 1), "@", CONFIG.Colors["yellow"])
     entities = set([player, npc])
 
-    engine = Engine(window, entities, player, game_map)
+    engine = Engine(window, entities, game_map)
 
     clock = pygame.time.Clock()
     run = True
@@ -49,6 +49,7 @@ def main() -> None:
             handled = engine.event_handler.handle_events(event)
             if event.type == pygame.QUIT:
                 run = False
+        rendered = engine.render()
     pygame.quit()
 
 if __name__ == "__main__":

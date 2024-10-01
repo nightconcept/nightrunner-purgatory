@@ -76,6 +76,7 @@ class Entity:
 class Player(Entity):
     """Player class"""
     def __init__(self, image: pygame.Rect):
+        super().__init__
         self.rect = image.subsurface((0, 0, 16, 16))
 
     def move(self, x, y):
@@ -87,3 +88,9 @@ class Player(Entity):
 
     def _validate_helper(self):
         return True
+
+class Npc(Player):
+    """NPC class"""
+    def __init__(self, image: pygame.Rect):
+        super().__init__
+        self.rect = image.subsurface((0, 0, 16, 16))

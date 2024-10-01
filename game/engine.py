@@ -11,7 +11,7 @@ from typing import Set, Iterable, Any
 from game.entity import Entity
 from game.game_map import GameMap
 from game.window import Window
-from event_handlers import *
+from event_handlers import MainGameEventHandler
 
 # ===============================================================================
 # Classes
