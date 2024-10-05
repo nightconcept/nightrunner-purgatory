@@ -22,24 +22,32 @@ class Window:
             caption: str,
             width: int = CONFIG.WINDOW_WIDTH,
             height: int = CONFIG.WINDOW_HEIGHT,
-            unit_width: int = CONFIG.UNIT_SIZE,
-            unit_height: int = CONFIG.UNIT_SIZE
+            tile_width: int = CONFIG.UNIT_SIZE,
+            tile_height: int = CONFIG.UNIT_SIZE
         ):
         """
         Define pygame window and tcod console.
 
-        :param x: x-coordinate to draw entity
-        :param y: y-coordinate to draw entity
-        :param entity: the entity to draw 
+        :param caption: Title in titlebar of window.
+        :param width: Pixel width of window.
+        :param height: Pixel height of window.
+        :param tile_width: Size in pixels of a unit.
+        :param tile_height: Size in pixels of a unit.
         """
-        self.window = pygame.display.set_mode((width, height))
+        self._window: pygame.Surface = pygame.display.set_mode((width, height))
         pygame.display.set_caption(caption)
 
-    def fill(self, color: tuple[int, int, int] | pygame.Color) -> None:
-        self.window.fill(color)
 
-    def get_window(self) -> pygame.Surface:
-        return self.window
+    def fill(self, color: tuple[int, int, int] | pygame.Color) -> None:
+        self._window.fill(color)
+
+    def get(self) -> pygame.Surface:
+        """
+        Get Window()'s pygame.Surface for rendering.
+
+        :returns: Window()'s pygame.Surface
+        """
+        return self._window
     
     def console_tiles_rgb(self) -> None:
         pass
@@ -48,8 +56,8 @@ class Window:
         """
         Emulates the console.print() function of tcodlib
 
-        :param x: x-coordinate to draw entity
-        :param y: y-coordinate to draw entity
-        :param entity: the entity to draw 
+        :param x: X-coordinate (unit-scale) to draw entity.
+        :param y: X-coordinate (unit-scale) to draw entity.
+        :param entity: The entity to draw.
         """
         pass

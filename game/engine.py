@@ -7,29 +7,32 @@
 # ===============================================================================
 from __future__ import annotations
 
-import pygame
-
-from typing import Optional, Set, Iterable, Any
+from event_handlers import MainGameEventHandler
+import exceptions
 from game.actions import Action
 from game.entity import Entity, Player
 from game.game_map import GameMap
 from game.window import Window
-from event_handlers import MainGameEventHandler
 from game.config import Config as CONFIG
-import exceptions
+import pygame
+
+from typing import Optional, Set
 
 # ===============================================================================
 # Classes
 # ===============================================================================
 class Engine:
     """
-    Engine class that holds all relevant data together
+    Engine class that holds all relevant data together.
     """
     def __init__(self, window: Window, entities: Set[Entity], game_map: GameMap, player: Entity):
         self.window =  window
+        for entity in entities:
+            entity.set_engine(self)
         self.entities = entities
         self.event_handler = MainGameEventHandler(self)
         self.game_map = game_map
+        self.game_map.set_engine(self)
         self.player = player
 
     def handle_events(self, event: pygame.Event) -> bool:

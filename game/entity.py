@@ -16,7 +16,7 @@ import pygame
 # Classes
 # ===============================================================================
 class Entity:
-    engine: Engine
+    _engine: Engine
     def __init__(
         self,
         x: int,
@@ -40,6 +40,12 @@ class Entity:
         self.char = char
         self.color = color
 
+    def set_engine(self, engine: Engine) -> None:
+        """
+        Set engine that entity will render to
+        """
+        self._engine = engine
+
     def move(self, dx: int, dy: int) -> None:
         # Move the entity by a given amount
         # TODO: Remove later in tutorial as separate tutorial moved this
@@ -49,7 +55,7 @@ class Entity:
 
     def render(self) -> bool:
         """
-        Draw this entity onscreen.
+        Render this entity onscreen.
 
         This method must be overridden by Entity subclasses.
         """
@@ -59,9 +65,9 @@ class Entity:
         """
         Validate that all fields are properly set.
 
-        This method must be overridden by Entity subclasses.
+        This method needs _validate_helper() to be overriden by Entity subclasses.
         """
-        return isinstance(self.engine, Engine) and self._validate_helper()
+        return isinstance(self._engine, Engine) and self._validate_helper()
 
     def _validate_helper(self) -> bool:
         """
@@ -86,7 +92,17 @@ class Player(Entity):
         super().__init__(x, y, image, char, color)
         self.rect = image.subsurface((0, 0, 16, 16))
 
-    def move(self, x, y):
+    def move(self, x, y) -> None:
+        """Move the player by (x,y).
+
+        Args:
+            x: Distance across the x-axis to move.
+            y: Distance across the y-axis to move.
+
+        Returns:
+            None
+
+        """
         self.x += x
         self.y += y
     

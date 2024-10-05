@@ -6,19 +6,13 @@
 # Imports
 # ===============================================================================
 from __future__ import annotations
-
-from typing import Optional, Union
-
-import exceptions
+import game.actions
+from game.actions import Action, MoveAction, EscapeAction
+from game.engine import Engine
+from game.keyboard_layout import MOVE_KEYS
 import pygame
 import tcod
-
-import game.actions
-from game.engine import Engine
-
-from actions import Action, MoveAction, EscapeAction
-
-from keyboard_layout import MOVE_KEYS
+from typing import Optional, Union
 
 ActionOrHandler = Union["game.actions.Action", "EventHandler"]
 """An event handler return value which can trigger an action or switch active handlers.

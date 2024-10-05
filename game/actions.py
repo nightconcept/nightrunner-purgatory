@@ -6,7 +6,6 @@
 # Imports
 # ===============================================================================
 from __future__ import annotations
-
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -18,11 +17,11 @@ if TYPE_CHECKING:
 # ===============================================================================
 class Action:
     def perform(self, engine: Engine, entity: Entity) -> bool:
-        """Perform this action with the objects needed to determine its scope.
+        """
+        Perform this action with the objects needed to determine its scope.
 
-        `engine` is the scope this action is being performed in.
-
-        `entity` is the object performing the action.
+        :param engine: The scope this action is being performed in.
+        :param entity: The object that will perform the action.
 
         This method must be overridden by Action subclasses.
         """
