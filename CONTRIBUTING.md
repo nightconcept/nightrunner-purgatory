@@ -1,6 +1,6 @@
 # How to contribute
 
-This document is a guide to contributing to NightRunnerRL-Purgatory. It is/will be a compilation of advice from various authors, updated as needed.
+This document is a guide to contributing to NightRunner Purgatory. It is/will be a compilation of advice from various authors, updated as needed.
 
 ## Onboarding
 
