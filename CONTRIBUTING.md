@@ -19,7 +19,7 @@ This game was really inspired by [Roguelike Tutorials](https://rogueliketutorial
 For this project, here's a list of tools that you should use:
 - [Visual Studio Code](https://code.visualstudio.com/) or [PyCharm Community Edition](https://www.jetbrains.com/pycharm/) for editing code
 - [Scoop](https://scoop.sh/) for a command-line installer
-- [pipx](https://github.com/pypa/pipx) (skip for now) as another command-line installer
+- [pipx](https://github.com/pypa/pipx) *(skip for now)* as another command-line installer
 - [Poetry](https://python-poetry.org/) as a dependency manager used for this project
 - [Git](https://git-scm.com/) as the change management software
 - [GitHub Desktop](https://github.com/apps/desktop) for easier commits/interfacing with GitHub
@@ -79,7 +79,7 @@ Please adhere to the following rules:
 
 ## Submitting pull requests
 
-After you finish working on your issue and want your code to be merged into the main repository, you should submit a **pull request**. Go to [this page](https://github.com/nightconcept/nighterunnerl/pulls) and select "New pull request".
+After you finish working on your issue and want your code to be merged into the main repository, you should submit a **pull request**. Go to [this page](https://github.com/nightconcept/nightrunner-purgatory/pulls) and select "New pull request".
 If you need more help, see [GitHub's help page on Pull Requests](https://help.github.com/articles/using-pull-requests/).
 
 ## Need help?
