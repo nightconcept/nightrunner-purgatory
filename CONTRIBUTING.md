@@ -40,7 +40,7 @@ scoop install extras/github
 ```
 4. Log into GitHub. (Register if you do not have an account)
 5. Let me know what your account name is so I can grant you permissions to view the repository.
-6. After you have been granted permissions, open GitHub desktop. After logging in, click "Add" -> "Clone Repository". Under URL, input: `https://github.com/nightconcept/nightrunnerRL.git` and click "Clone".
+6. After you have been granted permissions, open GitHub desktop. After logging in, click "Add" -> "Clone Repository". Under URL, input: `https://github.com/nightconcept/nightrunner-purgatory.git` and click "Clone".
 7. Congrats, you now have a local copy to work with! All of your work should be done on a branch. I won't be teaching git basics, so you can refer to a video like this one: [Git and GitHub for Beginners - Crash Course - YouTube](https://www.youtube.com/watch?v=RGOj5yH7evk).
 
 ## Coding style
