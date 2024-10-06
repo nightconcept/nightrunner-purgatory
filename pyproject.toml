@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "nightrunnerrl"
+name = "nightrunner-purgatory"
 version = "0.0.1"
 description = "NightRunner roguelike using pygame and libtcod"
 authors = ["Danny Solivan <dark@nightconcept.net>"]
