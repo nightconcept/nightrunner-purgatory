@@ -6,9 +6,6 @@
 # Imports
 # ===============================================================================
 from __future__ import annotations
-
-
-
 from game.config import Config as CONFIG
 from game.engine import Engine
 from game.tile_types import Tiles as TILES
@@ -37,7 +34,9 @@ class GameMap:
 
     def set_engine(self, engine: Engine) -> None:
         """
-        Set engine that map will render to
+        Set engine that map will render to.
+
+        :params engine: Engine the map will render to.
         """
         self._engine = engine
 
@@ -49,9 +48,7 @@ class GameMap:
 
     def render(self) -> None:
         """
-        Return True if x and y are inside of the bounds of this map.
-
-        :params engine: 
+        Render the map's tiles to the engine.
         """
         if not self._validate():
             return
@@ -73,69 +70,24 @@ class GameMap:
         floor_sprite_image = self.spritesheets.get(floor_sprite_data.get(
             "sheet")).sprite_at(floor_sprite_data)
 
-        # now when we render the map and entities, we do so to this inner surface
-        # We'll also need to grab the player position when we see it
-        player_pos = (window.get_width()//2, window.get_width()//2)
-
         # render tiles either visible, explored, unexplored
-        for y in range(game_map.height):
-            for x in range(game_map.width):
+        for y in range(self.height):
+            for x in range(self.width):
                 # get tile info for rendering
-                tile = game_map.tiles[x][y]
-                explored = game_map.explored[x][y]
-                visible = game_map.visible[x][y]
+                # TODO, tie together what the tile needs to be with rendering it
+                tile = self.tiles[x][y]
 
-                # if it's not explored, we don't show it at all
-                if explored:
-                    if tile == tile_types.wall:
-                        self.draw_tile(inner_surface, x, y,
-                                       wall_sprite_image, tile_size)
-                    else:
-                        self.draw_tile(inner_surface, x, y,
-                                       floor_sprite_image, tile_size)
-                        pass
+                # TODO, this should be whichever image is there
+                self.draw_tile(x, y, floor_sprite_image, CONFIG.TILE_SIZE)
 
-                    # if it's not currently in LOS, we draw grey over it.
-                    if not visible:
-                        darken = pygame.Surface(
-                            (tile_size, tile_size)).convert()
-                        darken.fill(CONFIG.get_colour("black"))
-                        darkness = CONFIG.Display.get("darkness_opacity") or 0
-                        darken.set_alpha(darkness)
-                        self.draw_tile(inner_surface, x, y, darken, tile_size)
+        # TODO end
+        window.blit(inner_surface)
 
-        # Render entities on visible tiles
-        entities_sorted_for_rendering = sorted(
-            game_map.entities, key=lambda x: x.render_order.value
-        )
-        for _ent in entities_sorted_for_rendering:
-            # only render if visible
-            _ent_pos = list(_ent.position)
-            if game_map.visible[_ent_pos[0], _ent_pos[1]]:
-                # get sprite
-                ent_sprite_image = self.spritesheets.get(
-                    _ent.sprite.get("sheet")).sprite_at(_ent.sprite)
-                self.draw_entity(inner_surface, _ent,
-                                 ent_sprite_image, tile_size)
-                # if this is the player, grab its position on screen
-                if _ent == game_map.engine.PLAYER:
-                    player_pos = (_ent_pos[0] * tile_size,
-                                  _ent_pos[1]*tile_size)
-
-        # offset map to center player, then blit to window
-        # we use width in both cases because the display will remain square as much as possible
-        offset = (window.get_width()//2 - player_pos[0],
-                  window.get_width()//2 - player_pos[1])
-
-        # check and save map offset
-        if offset != self.map_offset:
-            self.map_offset_old = self.map_offset
-            self.map_offset = offset
-
-        # TODO: Make lerp from one to other
-
-        window.blit(inner_surface, offset)  # that 0,0 is what we need to replace
-
+    def draw_tile(self, x:int , y: int, tile: pygame.Surface, tile_size: int):
+        window = self._engine.window.get()
+        _x = x * tile_size
+        _y = y * tile_size
+        window.blit(tile, (_x, _y))
     
     def _validate(self) -> bool:
         """

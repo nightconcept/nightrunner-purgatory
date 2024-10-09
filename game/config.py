@@ -38,7 +38,7 @@ class Config:
 
     FPS = 60
     UNIT_SIZE = 16 # in pixels
-    TILE_SIZE = 16 # in pixels
+    TILE_SIZE: int = 16 # in pixels
     WINDOW_UNIT_WIDTH = 80
     WINDOW_UNIT_HEIGHT = 50
     WINDOW_WIDTH = UNIT_SIZE * WINDOW_UNIT_WIDTH
