@@ -5,6 +5,7 @@ A 2D pixel art traditional roguelike set in a futuristic/cyberpunk world. The pl
 ## Setup
 ### Windows
 #### Requirements
+- `python` = 3.11.9
 - `poetry` >= 1.8.x
  
 ## Contributing
