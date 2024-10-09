@@ -6,16 +6,14 @@
 # Imports
 # ===============================================================================
 from __future__ import annotations
-
-from event_handlers import MainGameEventHandler
-import exceptions
 from game.actions import Action
+from game.config import Config as CONFIG
 from game.entity import Entity, Player
+from game.event_handlers import MainGameEventHandler
+import game.exceptions
 from game.game_map import GameMap
 from game.window import Window
-from game.config import Config as CONFIG
 import pygame
-
 from typing import Optional, Set
 
 # ===============================================================================

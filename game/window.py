@@ -5,11 +5,12 @@
 # ===============================================================================
 # Imports
 # ===============================================================================
-from typing import Set, Tuple
-import pygame
-
 from game.config import Config as CONFIG
-from game.entity import Entity
+import pygame
+from typing import Set, Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from game.entity import Entity
 
 # ===============================================================================
 # Classes
@@ -36,7 +37,6 @@ class Window:
         """
         self._window: pygame.Surface = pygame.display.set_mode((width, height))
         pygame.display.set_caption(caption)
-
 
     def fill(self, color: tuple[int, int, int] | pygame.Color) -> None:
         self._window.fill(color)

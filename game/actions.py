@@ -9,8 +9,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from engine import Engine
-    from entity import Entity
+    from game.engine import Engine
+    from game.entity import Entity
     
 # ===============================================================================
 # Classes
@@ -53,4 +53,3 @@ class MoveAction(Action):
 class EscapeAction(Action):
     def perform(self, engine: Engine, entity: Entity) -> bool:
         raise SystemExit()
-        

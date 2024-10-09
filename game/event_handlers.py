@@ -8,11 +8,14 @@
 from __future__ import annotations
 import game.actions
 from game.actions import Action, MoveAction, EscapeAction
-from game.engine import Engine
 from game.keyboard_layout import MOVE_KEYS
 import pygame
 import tcod
-from typing import Optional, Union
+from typing import Optional, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from game.engine import Engine
+    from game.entity import Entity
 
 ActionOrHandler = Union["game.actions.Action", "EventHandler"]
 """An event handler return value which can trigger an action or switch active handlers.

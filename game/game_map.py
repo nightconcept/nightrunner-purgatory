@@ -7,7 +7,6 @@
 # ===============================================================================
 from __future__ import annotations
 from game.config import Config as CONFIG
-from game.engine import Engine
 from game.tile_types import Tiles as TILES
 import numpy as np
 import pygame

@@ -7,15 +7,14 @@
 # ===============================================================================
 # Imports
 # ===============================================================================
-from typing import Set, Tuple
-from game.tiles import Tileset
-import pygame
-
+from game.config import Config as CONFIG
 from game.engine import Engine
 from game.entity import Player, Npc, Entity
 from game.game_map import GameMap
+from game.tiles import Tileset
 from game.window import Window
-from game.config import Config as CONFIG
+import pygame
+from typing import Set, Tuple
 
 # ===============================================================================
 # Constants and configuration

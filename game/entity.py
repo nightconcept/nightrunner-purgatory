@@ -6,11 +6,12 @@
 # Imports
 # ===============================================================================
 from __future__ import annotations
-
-from typing import Tuple
-
-from game.engine import Engine
 import pygame
+from typing import Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from game.engine import Engine
+    from game.entity import Entity
 
 # ===============================================================================
 # Classes
