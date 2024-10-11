@@ -7,7 +7,8 @@
 # ===============================================================================
 # Imports
 # ===============================================================================
-from typing import Tuple, List
+from __future__ import annotations
+from typing import Tuple
 import pygame
 
 # ===============================================================================
@@ -58,7 +59,7 @@ class Tileset:
                 line.append(tile)
             self._tile_table.append(line)
 
-    def get_tile(self, x: int, y: int) -> pygame.Rect:
+    def get_tile(self, x: int, y: int) -> pygame.Surface:
         """
         Get rect of associated tile
         """

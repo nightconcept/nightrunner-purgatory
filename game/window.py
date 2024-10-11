@@ -5,9 +5,10 @@
 # ===============================================================================
 # Imports
 # ===============================================================================
+from __future__ import annotations
 from game.config import Config as CONFIG
 import pygame
-from typing import Set, Tuple, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from game.entity import Entity
@@ -52,12 +53,11 @@ class Window:
     def console_tiles_rgb(self) -> None:
         pass
     
-    def console_print(self, x: int, y: int, entity: Entity) -> None:
+    def console_print(self, x: int, y: int) -> None:
         """
         Emulates the console.print() function of tcodlib
 
         :param x: X-coordinate (unit-scale) to draw entity.
         :param y: X-coordinate (unit-scale) to draw entity.
-        :param entity: The entity to draw.
         """
         pass

@@ -5,6 +5,7 @@
 # ===============================================================================
 # Imports
 # ===============================================================================
+from __future__ import annotations
 import numpy as np  # type: ignore
 
 # Tile struct used for statically defined tile data.

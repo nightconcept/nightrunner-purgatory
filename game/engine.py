@@ -10,7 +10,7 @@ from game.actions import Action
 from game.config import Config as CONFIG
 from game.entity import Entity, Player
 from game.event_handlers import MainGameEventHandler
-import game.exceptions
+from game.exceptions import Impossible
 from game.game_map import GameMap
 from game.window import Window
 import pygame
@@ -23,7 +23,7 @@ class Engine:
     """
     Engine class that holds all relevant data together.
     """
-    def __init__(self, window: Window, entities: Set[Entity], game_map: GameMap, player: Entity):
+    def __init__(self, window: Window, entities: list, game_map: GameMap, player: Entity):
         self.window =  window
         for entity in entities:
             entity.set_engine(self)
@@ -41,7 +41,7 @@ class Engine:
             return False
         try:
             action_performed = action.perform(self, self.player)
-        except exceptions.Impossible as ex:
+        except Impossible as ex:
             return False
         return action_performed
     
@@ -61,6 +61,6 @@ class Engine:
             for entity in self.entities:
                 entity.render()
             pygame.display.flip()
-        except exceptions.Impossible as ex:
+        except Impossible as ex:
             return False
         return True

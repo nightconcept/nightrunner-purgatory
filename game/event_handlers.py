@@ -17,14 +17,6 @@ if TYPE_CHECKING:
     from game.engine import Engine
     from game.entity import Entity
 
-ActionOrHandler = Union["game.actions.Action", "EventHandler"]
-"""An event handler return value which can trigger an action or switch active handlers.
-
-If a handler is returned then it will become the active handler for future events.
-If an action is returned it will be attempted and if it's valid then
-MainGameEventHandler will become the active handler.
-"""
-
 # ===============================================================================
 # Classes
 # ===============================================================================
@@ -43,23 +35,18 @@ class MainGameEventHandler(EventHandler):
         action: Optional[Action] = None
         if event.type == pygame.KEYDOWN:
             keys_pressed = pygame.key.get_pressed()
-            if keys_pressed in MOVE_KEYS:
-                dir = MOVE_KEYS[event.key]
+            move_key = None
+            if keys_pressed[pygame.K_UP]:
+                move_key = pygame.K_UP
+            elif keys_pressed[pygame.K_DOWN]:
+                move_key = pygame.K_DOWN
+            elif keys_pressed[pygame.K_LEFT]:
+                move_key = pygame.K_LEFT
+            elif keys_pressed[pygame.K_RIGHT]:
+                move_key = pygame.K_RIGHT
+            if move_key != None:
+                dir = MOVE_KEYS[move_key]
                 action = MoveAction(*dir)
+                action.perform(self.engine, self.engine.player)
                 
-        return action
-
-    def ev_quit(self, event: pygame.Event) -> Optional[Action]:
-        raise SystemExit(0)
-    
-    def ev_keydown(self) -> Optional[Action]:
-        action: Optional[Action] = None
-        keys_pressed = pygame.key.get_pressed()
-
-        if keys_pressed in MOVE_KEYS:
-            dx, dy = MOVE_KEYS[keys_pressed]
-            action = MoveAction(dx=dx, dy=dy)
-        elif keys_pressed == tcod.event.K_ESCAPE:
-            action = EscapeAction()
-
         return action
