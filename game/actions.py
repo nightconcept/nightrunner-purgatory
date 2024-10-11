@@ -1,38 +1,55 @@
 # ===============================================================================
 # game/actions.py
 # ===============================================================================
+
+# ===============================================================================
+# Imports
+# ===============================================================================
 from __future__ import annotations
+from typing import TYPE_CHECKING
 
-import game.entity
-
-
+if TYPE_CHECKING:
+    from game.engine import Engine
+    from game.entity import Entity
+    
+# ===============================================================================
+# Classes
+# ===============================================================================
 class Action:
-    def __init__(self, entity: game.entity.Entity) -> None:
-        super().__init__()
-        self.entity = entity  # The object performing the action.
-        self.engine = entity.gamemap.engine
+    def perform(self, engine: Engine, entity: Entity) -> bool:
+        """
+        Perform this action with the objects needed to determine its scope.
 
-    def perform(self) -> None:
-        """Perform this action now.
+        :param engine: The scope this action is being performed in.
+        :param entity: The object that will perform the action.
 
         This method must be overridden by Action subclasses.
         """
         raise NotImplementedError()
     
-class Move(Action):
-    def __init__(self, entity: game.entity.Entity, dx: int, dy: int):
-        super().__init__(entity)
+class MoveAction(Action):
+    def __init__(self, dx: int, dy: int):
+        """
+        Move action across a distance.
 
+        :param dx: Distance to move along x-axis.
+        :param dy: Distance to move along y-axis.
+        """
         self.dx = dx
         self.dy = dy
 
-    def perform(self) -> None:
-        dest_x = self.entity.x + self.dx
-        dest_y = self.entity.y + self.dy
+    def perform(self, engine: Engine, entity: Entity) -> bool:
+        dest_x = entity.x + self.dx
+        dest_y = entity.y + self.dy
 
-        if not self.engine.game_map.in_bounds(dest_x, dest_y):
-            return  # Destination is out of bounds.
-        if not self.engine.game_map.tiles[dest_x, dest_y]:
-            return  # Destination is blocked by a tile.
+        if not engine.game_map.in_bounds(dest_x, dest_y):
+            return False # Destination is out of bounds.
+        if not engine.game_map.tiles[dest_x, dest_y]:
+            return False # Destination is blocked by a tile.
 
-        self.entity.x, self.entity.y = dest_x, dest_y
+        entity.x, entity.y = dest_x, dest_y
+        return True
+
+class EscapeAction(Action):
+    def perform(self, engine: Engine, entity: Entity) -> bool:
+        raise SystemExit()

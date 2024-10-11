@@ -1,22 +1,15 @@
-# NightRunnerRL
+# NightRunner Purgatory
 
-The NightRunner project as a roguelike.
+A 2D pixel art traditional roguelike set in a futuristic/cyberpunk world. The player is tasked with figuring out how to escape their city in a city called Purgatory. To do this, the player must navigate a dungeon-like digital world to escape and uncover other mysteries along the way.
 
 ## Setup
-### Windows
-#### Requirements
-- `python` >= 3.11.x
+### Development Requirements
+- `python` = 3.11.9
 - `poetry` >= 1.8.x
  
-[pyenv-win](https://github.com/pyenv-win/pyenv-win) is recommended to manage python versions. Install a version of python matching the above requirements.
+## Contributing
 
-### macOS/Linux
-#### Requirements
-- `nix` >= 2.18.x
-- `direnv` >= 2.34.x
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for how to contribute.
 
-With `nix` and `direnv` installed, requirements should set up automatically after `cd`ing into the directory.
-
-# References
+## References
 - [Roguelike Tutorials](https://rogueliketutorials.com/)
-- [libtcod.github.io | Libtcod on GitHub Pages.](https://libtcod.github.io/)

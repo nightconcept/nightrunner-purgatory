@@ -1,2 +1,0 @@
-# Original
-This folder is a strict copy of - [Roguelike Tutorials](https://rogueliketutorials.com/) and [libtcod.github.io | Libtcod on GitHub Pages.](https://libtcod.github.io/) while also updated to the latest iteration of TCOD and Python.
