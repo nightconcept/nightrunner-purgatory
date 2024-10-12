@@ -29,9 +29,8 @@ class GameMap:
         :param height: Height of map in units
         """
         self.width, self.height = width, height
-        self.tiles = np.full((width, height), fill_value=TILES.types["floor"], order="F")
+        self.tiles = np.full((width, height), fill_value=TILES.types["wall"], order="F")
 
-        self.tiles[30:33, 22] = TILES.types["wall"]
         self.tileset = tileset
         self._initialized = False
 
