@@ -32,6 +32,7 @@ This is a reST style. This is the function description.
 ## Commiting rules
 
 Please adhere to the following rules:
+* Commits should follow [Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) standard.
 * Commits should not break on run or tests (if they exist).
 * Changes in one commit should not be too extensive, unless necessary.
 
