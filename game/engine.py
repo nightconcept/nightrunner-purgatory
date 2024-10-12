@@ -50,7 +50,7 @@ class Engine:
         response = None
         match event:
             case pygame.KEYDOWN:
-                response = self.event_handler.ev_keydown()
+                pass
         return response
 
     def render(self) -> bool:

@@ -67,3 +67,9 @@ class Tileset:
 
     def __str__(self):
         return f'{self.__class__.__name__} file:{self._file_path} tile:{self._size}'
+    
+# ===============================================================================
+# Constants #TODO Move this out
+# ===============================================================================
+
+COMMON_TILESET = Tileset("data/dejavu16x16_gs_tc.png", (16,16), 0, 0)
