@@ -80,11 +80,23 @@ class GameMap:
         window.blit(inner_surface)
         return True
 
-    def draw_tile(self, x:int , y: int, tile: pygame.Surface, tile_size: int):
+    def draw_tile(self, x: int , y: int, tile: pygame.Surface, tile_size: int):
+        """
+        Draws an individual tile on the window.
+        
+        :params x: x-axis coordinate (in tiles) to draw at.
+        :params y: y-axis coordinate (in tiles) to draw at.
+        :params tile: Surface to draw onto the Window.
+        :params tile_size: Size of the tiles drawn in pixels.
+        """
         window = self._engine.window.get()
         _x = x * tile_size
         _y = y * tile_size
         window.blit(tile, (_x, _y))
 
     def _validate(self):
+        """
+        Helper function that returns whether the GameMap class is ready to use after init(). Expand
+        upon this as more requirements are needed.
+        """
         return self._initialized
