@@ -59,6 +59,7 @@ class Engine:
             self.window.fill(CONFIG.Colors["black"])
             self.game_map.render()
             for entity in self.entities:
+                # TODO: Add check on GameMap if entity should render
                 entity.render()
             pygame.display.flip()
         except Impossible as ex:
