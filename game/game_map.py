@@ -25,17 +25,26 @@ class GameMap:
     def __init__(self, width: int, height: int, tileset: Tileset):
         """
         GameMap class which holds all objects in a game map
+        
         :param width: Width of map in units
         :param height: Height of map in units
         """
         self.width, self.height = width, height
         self.tiles = np.full((width, height), fill_value=TILES.types["wall"], order="F")
 
+<<<<<<< Updated upstream
 
         self.visible = np.full((width, height), fill_value=False, order="F")  # Tiles the player can currently see
         self.explored = np.full((width, height), fill_value=False, order="F")  # Tiles the player has seen before
 
 
+=======
+        # Tiles the player can currently see
+        self.visible = np.full((width, height), fill_value=False, order="F") 
+
+        # Tiles the player has seen before
+        self.explored = np.full((width, height), fill_value=False, order="F")
+>>>>>>> Stashed changes
 
         self.tileset = tileset
         self._initialized = False

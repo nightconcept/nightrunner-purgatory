@@ -53,6 +53,17 @@ class Engine:
                 pass
         return response
 
+    def update_fov(self) -> None:
+        """Recompute the visible area based on the player's point of view."""
+
+        # TODO: Magic numbers!
+        self.GAMEMAP.visible[:] = compute_fov(
+            self.GAMEMAP.tiles["transparent"], self.PLAYER.position,
+            radius=CONFIG.Game.get("fov_radius")
+        )
+        # if a tile is visible it should be added to explored
+        self.GAMEMAP.explored |= self.GAMEMAP.visible
+
     def render(self) -> bool:
         """Render all entities, map, and UI on screen."""
         try:
